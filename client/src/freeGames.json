@@ -1,0 +1,42 @@
+[
+  {
+    "id": "roblox",
+    "name": "Roblox",
+    "genre": "Create \u00b7 Explore \u00b7 Play",
+    "description": "Discover creator-made worlds, join your friends, and make your own adventures.",
+    "url": "https://www.roblox.com/",
+    "color": "#9b6bff",
+    "symbol": "\u25c8",
+    "image": "https://assetdelivery.roblox.com/v1/asset?id=105014709880567"
+  },
+  {
+    "id": "fortnite",
+    "name": "Fortnite",
+    "genre": "Battle Royale",
+    "description": "Drop into Battle Royale, build your strategy, and explore worlds with your squad.",
+    "url": "https://www.fortnite.com/",
+    "image": "https://cdn2.unrealengine.com/links-admin-FNBR_42-30_Fortnitemares_BR_DiscoverTile_480x270-fcf0849c.jpg",
+    "color": "#62b9ff",
+    "symbol": "\u26a1"
+  },
+  {
+    "id": "rocket-league",
+    "name": "Rocket League",
+    "genre": "Sports \u00b7 Multiplayer",
+    "description": "Boost, flip, and score in high-speed soccer played with rocket-powered cars.",
+    "url": "https://www.rocketleague.com/play",
+    "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/252950/3abd9ab079c8896a4762dbe34a853d89b7f704df/header_alt_assets_17.jpg?t=1791210513",
+    "color": "#69e2ff",
+    "symbol": "\ud83c\udfce\ufe0f"
+  },
+  {
+    "id": "apex",
+    "name": "Apex Legends",
+    "genre": "Battle Royale \u00b7 FPS",
+    "description": "Choose a Legend, team up, and combine unique abilities in squad-based battles.",
+    "url": "https://store.steampowered.com/app/1172470/Apex_Legends/",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1172470/header.jpg",
+    "color": "#ff768b",
+    "symbol": "\u25b3"
+  }
+]

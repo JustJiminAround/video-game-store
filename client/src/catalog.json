@@ -1,0 +1,68 @@
+[
+  {
+    "id": "minecraft",
+    "name": "Minecraft",
+    "price": 29.99,
+    "description": "Build, explore, and create your own block-filled adventures.",
+    "genre": "Sandbox",
+    "color": "#45734a",
+    "symbol": "\u26cf\ufe0f",
+    "trailer": "r6Ja2ZxWbRE",
+    "image": "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/screenshots/CREATE_BuildAlmostAnything.png"
+  },
+  {
+    "id": "stardew",
+    "name": "Stardew Valley",
+    "price": 14.99,
+    "description": "Grow a farm, meet your neighbors, and explore a cozy valley.",
+    "genre": "Farming",
+    "color": "#846325",
+    "symbol": "\ud83c\udf3b",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/413150/header.jpg",
+    "trailer": "ot7uXNQskhs"
+  },
+  {
+    "id": "terraria",
+    "name": "Terraria",
+    "price": 9.99,
+    "description": "Dig, build, and battle through a world of discoveries.",
+    "genre": "Adventure",
+    "color": "#386b79",
+    "symbol": "\ud83c\udf33",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/105600/header.jpg",
+    "trailer": "w7uOhFTrrq0"
+  },
+  {
+    "id": "hollow-knight",
+    "name": "Hollow Knight",
+    "price": 14.99,
+    "description": "Explore a mysterious underground kingdom and master its challenges.",
+    "genre": "Action",
+    "color": "#515780",
+    "symbol": "\ud83d\udde1\ufe0f",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/367520/header.jpg",
+    "trailer": "UAO2urG23S4"
+  },
+  {
+    "id": "hades",
+    "name": "Hades",
+    "price": 24.99,
+    "description": "Fight your way out of the underworld with powers from Greek gods.",
+    "genre": "Action",
+    "color": "#863f44",
+    "symbol": "\ud83d\udd25",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1145360/header.jpg",
+    "trailer": "Bz8l935Bv0Y"
+  },
+  {
+    "id": "among-us",
+    "name": "Among Us",
+    "price": 4.99,
+    "description": "Complete spaceship tasks and uncover the impostor with friends.",
+    "genre": "Multiplayer",
+    "color": "#594785",
+    "symbol": "\ud83d\ude80",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/945360/header.jpg",
+    "trailer": "0YKjFoGxbec"
+  }
+]

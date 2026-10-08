@@ -1,0 +1,85 @@
+/* Player One: richer art direction and a more deliberate visual hierarchy. */
+:root { --premium-cyan:#85e5f8; --premium-lilac:#bea6ff; }
+.ambient-world { background:radial-gradient(ellipse at 0 8%,#26133b90,transparent 38%),radial-gradient(ellipse at 100% 45%,#133b3c50,transparent 45%),#090a0f; }
+.site-header { background:#090a0fa8; backdrop-filter:blur(20px); }
+.site-header nav { background:#ffffff04; border:1px solid #ffffff10; padding:6px; border-radius:40px; gap:5px; }
+.site-header nav a { padding:10px 17px; border-radius:30px; transition:background .25s,color .25s; }
+.site-header nav a.active { background:#ffffff10; color:white; box-shadow:inset 0 1px #ffffff15; }
+.site-header nav a:hover { background:#bda4ff15; }
+.brand-mark { transform:rotate(-8deg); border-radius:13px; box-shadow:0 0 35px #ff934333; }
+.discovery-intro { display:flex; align-items:flex-end; justify-content:space-between; gap:35px; margin:16px 0 38px; }
+.discovery-intro .eyebrow { color:#9e92ae; letter-spacing:3px; font-size:9px; }
+.intro-title { margin:12px 0 0; font-size:clamp(36px,4.2vw,58px); letter-spacing:-2.8px; font-weight:850; line-height:1.09; }
+.intro-title span { background:linear-gradient(100deg,#e5ccff,#adbeff 60%,#9de6ed); background-clip:text; color:transparent; }
+.intro-aside { display:grid; grid-template-columns:45px auto; column-gap:15px; padding:0 0 8px; }
+.intro-orbit { grid-row:span 2; color:#bba1ff; font-size:43px; line-height:1; text-shadow:0 0 25px #b793ff60; }
+.intro-aside p { margin:0 0 14px; font-size:11px; line-height:1.8; color:#ada8b9; }
+.intro-aside a { color:#ded1ff; text-decoration:none; font-size:10px; display:flex; gap:28px; align-items:center; }
+.intro-aside a span { border:1px solid #ffffff25; width:23px;height:23px; border-radius:50%; display:grid;place-items:center; }
+.spotlight { border-radius:24px; box-shadow:0 30px 90px #0008,0 0 65px color-mix(in srgb,var(--spot-color) 7%,transparent); border-color:color-mix(in srgb,var(--spot-color) 30%,#ffffff20); min-height:635px; }
+.spot-copy { padding-top:58px; padding-bottom:155px; }
+.spot-copy h1 { font-size:clamp(48px,6.1vw,81px); letter-spacing:-4.5px; }
+.spot-vignette { background:linear-gradient(90deg,#090b14f5 0%,#090b14ca 25%,#090b1420 60%,transparent 100%),linear-gradient(0deg,#090b14f5,transparent 75%); }
+.spot-scene > img { object-position:center center; }
+.spot-copy .primary-button { position:relative; overflow:hidden; }
+.spot-copy .primary-button::after { content:''; position:absolute; inset:0; background:linear-gradient(110deg,transparent 30%,#fff6,transparent 65%); transform:translateX(-130%); transition:transform .6s; pointer-events:none; }
+.spot-copy .primary-button:hover::after { transform:translateX(130%); }
+.spot-stamp { border:1px solid #ffffff25; border-radius:12px; padding:10px 15px; background:#0a0b1450; backdrop-filter:blur(10px); font-size:26px; }
+.spot-selectors { gap:15px; }
+.spot-selectors button { background:#0c0d14bb; padding:12px 14px; border-color:#ffffff20; }
+.spot-selectors img { width:76px;height:48px; }
+.store-strip { padding:20px 2px; margin-bottom:58px; opacity:.8; }
+.section-heading { align-items:flex-end; margin-top:12px; }
+.section-heading .eyebrow { color:#a49cae; letter-spacing:2.5px; font-size:9px; }
+.section-heading h2 { font-size:clamp(30px,3.3vw,45px); }
+.mood-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; margin:30px 0; }
+.mood-card { position:relative; overflow:hidden; height:230px; border:1px solid #ffffff22; border-radius:16px; background:#12141f; padding:0; text-align:left; cursor:pointer; transition:transform .4s,box-shadow .4s,border-color .4s; }
+.mood-card img { width:100%;height:100%;object-fit:cover;transition:transform .8s,filter .5s; filter:saturate(.85); }
+.mood-shade { position:absolute;inset:0;background:linear-gradient(0deg,#0a0b13 0%,#0a0b13b0 45%,#0a0b1300 100%); }
+.mood-copy { position:absolute;bottom:25px;left:24px;right:35px;display:grid;gap:9px; }
+.mood-copy small { font-size:8px;letter-spacing:2px;font-weight:700;color:var(--mood-color); }
+.mood-copy strong { font-size:22px;letter-spacing:-.6px;color:white;line-height:1.15; }
+.mood-copy>span { font-size:10px;color:#b8b4c3;line-height:1.5; }
+.mood-card>b { position:absolute;right:18px;top:18px;width:30px;height:30px;display:grid;place-items:center;border:1px solid #ffffff40;border-radius:50%;color:white;font-size:16px;background:#090b1340; }
+.mood-card:hover { transform:translateY(-6px);border-color:var(--mood-color);box-shadow:0 15px 35px #0007,0 0 25px color-mix(in srgb,var(--mood-color) 10%,transparent); }
+.mood-card:hover img { transform:scale(1.09);filter:saturate(1.1); }
+.collection-tools { scroll-margin-top:30px; background:#ffffff03;border:1px solid #ffffff0e;border-radius:14px;padding:13px;margin-bottom:25px; }
+.genre-pills button { padding:9px 14px; }
+.game-search { background:#090a1050;border-color:#ffffff12; }
+.product-card { border-radius:18px;background:linear-gradient(130deg,#24233290,#13141f);box-shadow:0 10px 25px #0002; }
+.cover-wrap { aspect-ratio:460/215; border-bottom:1px solid #ffffff15; }
+.cover-label { top:14px;left:14px;font-size:8px;letter-spacing:1px;padding:7px 10px;text-transform:uppercase; }
+.card-content h3 { font-size:23px;line-height:1.15;margin-bottom:12px; }
+.card-content { padding:23px; }
+.card-content .description { font-size:11px;line-height:1.8;color:#a9a4b5;min-height:42px; }
+.card-bottom { border-color:#ffffff13;padding-top:18px; }
+.price { font-size:19px;font-weight:750; }
+.add-button { background:linear-gradient(125deg,#dac9ff,#b394f8);border:none;font-size:10px;padding:10px 12px; }
+.product-card:hover { border-color:#d6bfff80;box-shadow:0 22px 50px #0008,0 0 0 1px #bda4ff20!important; }
+.trailer-stage { background:linear-gradient(145deg,#1e172b60,#10121a40);padding:32px;border:1px solid #bda4ff20;border-radius:22px; }
+.trailer-stage .section-heading { margin-top:0; }
+.cinema-card { border-radius:13px;aspect-ratio:1.48; }
+.cinema-play { box-shadow:0 0 0 8px #ffffff06,0 0 0 16px #ffffff03; }
+.cinema-label strong { font-size:21px; }
+.free-section { border-color:#bdff6230;border-radius:24px;background:radial-gradient(ellipse at 90% 0,#c6ff6725,transparent 40%),linear-gradient(135deg,#14221b,#0e1219 70%); }
+.free-section h2 em { text-shadow:0 0 45px #b5ff6318; }
+.zero-price { background:#b5ff6306;border-color:#b5ff6340;box-shadow:0 0 50px #b5ff6308; }
+.free-card { background:linear-gradient(145deg,#24352c70,#141a1e);border-radius:17px; }
+.free-card:hover { box-shadow:0 24px 45px #0007,0 0 25px #b5ff630b; }
+.free-badge { box-shadow:0 0 20px #b5ff6320;font-size:8px;letter-spacing:1px; }
+.free-card-content { padding:24px; }
+.closing-banner { padding:38px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 100% 100%,#6843aa70,transparent 70%),linear-gradient(100deg,#181322,#231735);border-color:#b69eff35; }
+.closing-banner::after { content:'P1';position:absolute;right:20%;top:-15px;font-size:150px;font-weight:950;color:#ffffff03;pointer-events:none; }
+.closing-banner h2 { letter-spacing:-1px;font-size:32px; }
+footer { border-top:1px solid #ffffff12;padding-top:30px; }
+.cart-page { padding:35px;background:radial-gradient(ellipse at 100% 0,#7d4dcc25,transparent 60%),#0f101b70;border:1px solid #ffffff10; }
+.cart-page h1 { font-size:52px;letter-spacing:-2.5px; }
+.cart-item { border:1px solid #ffffff1f;background:linear-gradient(120deg,#21212e,#171722);padding:22px;border-radius:17px; }
+.cart-cover { width:170px;border-radius:10px;overflow:hidden;box-shadow:0 8px 25px #0004; }
+.cart-details h2 { font-size:20px;letter-spacing:-.6px; }
+.order-summary { border-radius:17px;background:linear-gradient(150deg,#2a213d,#14151f);border-color:#c6aaff30; }
+.summary-total strong { color:#dbcaff;font-size:38px;letter-spacing:-1.5px; }
+.quantity-controls { background:#090a1260;border-color:#c8aaff25;border-radius:11px; }
+@media(max-width:1000px) { .site-header nav a {padding:9px 12px} .spot-copy {padding-left:40px} .intro-aside {max-width:230px} .mood-copy {left:18px;bottom:20px} .mood-copy strong {font-size:19px} .collection-tools {gap:12px} }
+@media(max-width:650px) { .site-header nav {padding:3px;gap:1px} .site-header nav a {font-size:9px;padding:8px 9px} .brand {font-size:14px} .discovery-intro {display:block;margin:12px 0 26px} .intro-title {font-size:38px;letter-spacing:-1.8px} .discovery-intro .eyebrow {font-size:8px;letter-spacing:2px} .intro-aside {display:none} .spotlight {min-height:680px;border-radius:18px} .spot-copy {padding:35px 24px 205px} .spot-copy h1 {font-size:49px;letter-spacing:-2.8px} .spot-vignette {background:linear-gradient(90deg,#090b14eb,#090b1460),linear-gradient(0deg,#090b14 0%,transparent 95%)} .spot-selectors img {width:45px;height:28px} .spot-selectors {gap:6px} .spot-selectors button {padding:8px 10px} .store-strip {padding:17px 0;margin-bottom:35px} .mood-grid {grid-template-columns:1fr;gap:12px;margin:23px 0} .mood-card {height:155px} .mood-card img {object-position:center 35%} .mood-copy {bottom:18px;left:20px;gap:6px} .mood-copy strong {font-size:22px} .mood-copy small {font-size:7px} .mood-copy>span {font-size:9px} .collection-tools {padding:12px} .genre-pills button {padding:8px 11px} .trailer-stage {padding:20px;margin:45px 0;border-radius:18px} .cinema-card {aspect-ratio:1.6} .cinema-label {bottom:18px;left:18px;right:18px} .cinema-label strong {font-size:21px} .card-content {padding:22px} .free-section {border-radius:18px} .closing-banner {padding:25px} .closing-banner h2 {font-size:25px} .closing-banner::after {display:none} .cart-page {padding:20px 15px;border-radius:18px} .cart-page h1 {font-size:38px;letter-spacing:-1.7px} .cart-item {padding:16px;gap:16px} .cart-cover {width:110px} .cart-details h2 {font-size:17px} .summary-total strong {font-size:34px} }
+.site-header nav { height:auto; min-height:0; align-self:center; }
