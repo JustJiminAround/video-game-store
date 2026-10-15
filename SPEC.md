@@ -26,3 +26,6 @@ A React website with Discover, Free to Play, and Cart pages. The cart displays g
 
 ## Current Scope
 This is a front-end school demo. Sample prices, no real purchases. Real payments, accounts, a database, and deployment are outside this stage.
+
+## Optional M5 extension — October 15
+A separate Express practice API now accompanies the front-end storefront. Its methods, response shapes, and additional acceptance criteria are in CONTRACT.md. It returns the same JSON catalog and echoes a submitted object; /api/demo demonstrates GET and POST in a browser. It does not persist data, replace the store's local catalog import, or expand the project into payments, accounts, or a database. Verification evidence is in LESSON_10_CHECKS.md.
