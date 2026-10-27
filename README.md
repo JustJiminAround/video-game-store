@@ -2,7 +2,7 @@
 
 A Code2College P1 storefront: React + Vite, real game artwork, game search and genre filters, trailer dialogs, free-game links, and a sample cart. Prices are examples; no payments are collected.
 
-The October 15 M5 extension adds a separate Express API and an interactive API Lab. The storefront still reads its local JSON catalog; the lab practices browser requests to the API. SQLite and saved submissions are later milestones.
+The October 15 M5 extension adds a separate Express API and an interactive API Lab. The storefront still reads its local JSON catalog; the lab practices browser requests to the API. The L13 capstone foundation adds a SQLite wishlist and save/read API routes. The React Wishlist page, priority/delete operations, and custom summary remain L14 work.
 
 ## Run in Codespaces
 
@@ -13,6 +13,7 @@ Terminal 1 — API:
 ```sh
 cd server
 npm ci
+npm run db:init
 npm run dev
 ```
 
@@ -39,7 +40,7 @@ npm run lint
 npm run build
 ```
 
-There are seven API tests and four cart tests. See LESSON_10_CHECKS.md for the acceptance-criteria walkthrough and CONTRACT.md for the API request/response shapes.
+The server tests cover the original API plus SQLite wishlist saves, duplicate handling, validation, persistence after reopening the server, and honest unfinished-route responses. The client has four cart tests. See LESSON_10_CHECKS.md for the acceptance-criteria walkthrough and CONTRACT.md for the API request/response shapes.
 
 ## Demo path
 
@@ -59,6 +60,18 @@ There are seven API tests and four cart tests. See LESSON_10_CHECKS.md for the a
 
 ## Current limits
 
-The cart lives in React state and resets on refresh. Echoed messages are not stored. There are no accounts, payments, database, or production deployment. Artwork and trailers need internet access; the trailer dialog provides a YouTube fallback when an embed cannot play. Motion and sound have header toggles, with reduced-motion support.
+The cart lives in React state and resets on refresh. Echoed messages are not stored. There are no accounts, payments, or production deployment. A shared demo wishlist is now stored in SQLite through the C1 API; its full React interface is not built yet. Artwork and trailers need internet access; the trailer dialog provides a YouTube fallback when an embed cannot play. Motion and sound have header toggles, with reduced-motion support.
 
 Game names, artwork, and trailers belong to their respective owners. Artwork comes from Minecraft.net, publisher Steam assets, Roblox, and Epic; free-game links go to official game pages.
+
+## Capstone foundation (L13)
+
+[Approved scope and planned architecture](CAPSTONE_SPEC.md) · [Feature issue #1](https://github.com/JustJiminAround/video-game-store/issues/1) · [Capstone AI-usage log](AI-USAGE-LOG.md).
+
+Use **Node 24** for the server. The small SQLite layer uses Node's built-in [DatabaseSync API](https://nodejs.org/download/release/latest-v24.x/docs/api/sqlite.html), so no additional database server or native npm package is needed. The production entry point opens a file database; app-factory tests use isolated memory or temporary files.
+
+`npm --prefix server run db:init` creates the designed table without erasing rows. `npm --prefix server run db:inspect` runs a direct SELECT and prints the actual schema and rows. The default file is `server/data/player-one.sqlite`; it is ignored by Git. The API also initializes the table on startup. To configure a different file, copy `server/.env.example` to `server/.env` and set API_DB_PATH. Server npm scripts load this file. If changing API_PORT, set the matching value for Vite too.
+
+Open `/api/demo` through the private Vite preview. Choose **Save Minecraft (demo)**, then **Read saved wishlist**. Reload and read it again; restart the API and read it once more. A duplicate save returns 409 and keeps one row. Use `db:inspect` to verify storage directly. This is a shared list of sample games, with no personal data.
+
+Implemented: `GET /api/wishlist` and `POST /api/wishlist`. The summary, PATCH, and DELETE routes are explicit **501 stubs** for L14; they do not claim to update anything. The existing storefront/cart behavior is unchanged.

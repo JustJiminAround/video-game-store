@@ -14,9 +14,9 @@
 <header><small>PLAYER ONE / LEARNING LAB</small><h1>Your first API.</h1><p>Your browser asks. Express answers with JSON. Try a GET request, then send a message with POST.</p></header>
 <div class="grid">
 <section class="panel" aria-labelledby="try-heading"><h2 id="try-heading">Make a request</h2><p>GET reads data from the server.</p><button type="button" id="health">Check server</button><button type="button" id="products">Get games</button>
-<form id="echo-form"><label for="message">JSON object to send</label><textarea id="message" spellcheck="false">{"message": "Hello Player One"}</textarea><p>POST sends this object to Express. This practice route echoes it back; it does not save it.</p><button type="submit">Send message</button></form></section>
+<form id="echo-form"><label for="message">JSON object to send</label><textarea id="message" spellcheck="false">{"message": "Hello Player One"}</textarea><p>POST sends this object to Express. This practice route echoes it back; it does not save it.</p><button type="submit">Send message</button></form><h2>Saved wishlist foundation</h2><p>These C1 routes save a real SQLite row. The full Wishlist page and editing controls are planned for the next build session.</p><button type="button" id="wishlist-read">Read saved wishlist</button><button type="button" id="wishlist-save">Save Minecraft (demo)</button></section>
 <section class="panel" aria-labelledby="response-heading"><h2 id="response-heading">Server response</h2><p id="status" role="status" aria-live="polite">Ready for your first request.</p><pre id="response" aria-label="JSON response">The JSON response will appear here.</pre></section>
-</div><p><span class="tag">M5 · Node + Express</span> — The game catalog comes from the same JSON file as the store. A database comes later.</p>
+</div><p><span class="tag">C1 · Express + SQLite</span> — The catalog comes from JSON; saved wishlist choices persist in SQLite.</p>
 </main>
 <script>
 const status = document.querySelector('#status');
@@ -39,6 +39,8 @@ async function request(path, options = {}) {
 }
 document.querySelector('#health').addEventListener('click', () => request('/api/health'));
 document.querySelector('#products').addEventListener('click', () => request('/api/products'));
+document.querySelector('#wishlist-read').addEventListener('click', () => request('/api/wishlist'));
+document.querySelector('#wishlist-save').addEventListener('click', () => request('/api/wishlist', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ gameId: 'minecraft' }) }));
 document.querySelector('#echo-form').addEventListener('submit', event => {
   event.preventDefault();
   request('/api/echo', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: document.querySelector('#message').value });

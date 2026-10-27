@@ -3,3 +3,8 @@ node_modules/
 .env.*
 !.env.example
 *.log
+data/
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*

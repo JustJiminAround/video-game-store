@@ -82,3 +82,7 @@ Verified: lint and production build passed. The Farming mood card displayed Star
 - Fixed or rejected: Kept real payments, accounts, recommendations, deployment, and another visual redesign out of scope. Distinguished the existing sample cart from a future persistent wishlist. Planned a summary calculation beyond basic list/read, and a feature issue-to-PR workflow for capstone direction C.
 - Verified: Compared the draft with the Full Stack pathway’s seven required elements and Lesson 12’s spec/required-elements/milestone/approval requirements. Checked expected sample totals against the existing catalog. This session changes documentation only; no new capstone behavior or test results are claimed.
 - Remaining: Student confirmation of the proposed direction, personal lesson responses, and actual instructor sign-off. Approval must not be claimed until it is received.
+
+
+## October 27, 2026 — Capstone C1
+The ongoing capstone record now uses the filename required in Lesson 13: [AI-USAGE-LOG.md](AI-USAGE-LOG.md). Today's SQLite/schema/API work, choices, corrections, checks, and remaining L14 work are recorded there. Earlier history above remains unchanged.

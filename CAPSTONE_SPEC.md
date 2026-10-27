@@ -1,8 +1,10 @@
 # PLAYER ONE — Saved Game Wishlist
 
-Lesson 12 planning draft · October 22, 2026 · Prepared with AI assistance.
+Lesson 12 scope · October 22, 2026 · Prepared with AI assistance.
 
-**Approval status: awaiting instructor review. No capstone implementation is claimed complete.**
+**Approval status: approved as written, as reported by the student during the October 22 class.**
+
+Feature tracking: [issue #1](https://github.com/JustJiminAround/video-game-store/issues/1). C1 implements the database and save/read foundation; the full capstone is still in progress.
 
 ## Direction and starting point
 
@@ -115,9 +117,9 @@ SQLite and persistence are the new learning work. Finish the save → refresh �
 
 ## Instructor review
 
-- Status: **not yet confirmed**.
-- Reviewer, actual decision, and requested cuts: record after the instructor reviews this spec.
-- First step after approval: file/reference the feature issue and start L13 database foundations.
+- Status: **approved as written**, as reported by the student during the October 22 class.
+- No scope cuts were reported; the instructor name was not provided.
+- First build step: issue #1 and the L13 SQLite/save/read foundation.
 
 ## Short explanation for class
 
