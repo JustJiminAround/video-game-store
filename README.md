@@ -2,7 +2,7 @@
 
 A Code2College P1 storefront: React + Vite, real game artwork, game search and genre filters, trailer dialogs, free-game links, and a sample cart. Prices are examples; no payments are collected.
 
-The October 15 M5 extension adds a separate Express API and an interactive API Lab. The storefront still reads its local JSON catalog; the lab practices browser requests to the API. The L13 capstone foundation adds a SQLite wishlist and save/read API routes. The React Wishlist page, priority/delete operations, and custom summary remain L14 work.
+The October 15 M5 extension adds a separate Express API and an interactive API Lab. The storefront still reads its local JSON catalog; the lab practices browser requests to the API. The L14 capstone core adds a React Wishlist page backed by SQLite: save games, change their priority, remove them, and read a server-calculated summary. The original sample cart remains separate.
 
 ## Run in Codespaces
 
@@ -40,7 +40,7 @@ npm run lint
 npm run build
 ```
 
-The server tests cover the original API plus SQLite wishlist saves, duplicate handling, validation, persistence after reopening the server, and honest unfinished-route responses. The client has four cart tests. See LESSON_10_CHECKS.md for the acceptance-criteria walkthrough and CONTRACT.md for the API request/response shapes.
+There are 13 API tests and 4 cart tests. API checks cover the original routes, SQLite wishlist saves, duplicates, invalid input, priority updates, deletion, summary totals, and persistence after reopening the server. See LESSON_10_CHECKS.md for the acceptance-criteria walkthrough and CONTRACT.md for the API request/response shapes.
 
 ## Demo path
 
@@ -60,11 +60,11 @@ The server tests cover the original API plus SQLite wishlist saves, duplicate ha
 
 ## Current limits
 
-The cart lives in React state and resets on refresh. Echoed messages are not stored. There are no accounts, payments, or production deployment. A shared demo wishlist is now stored in SQLite through the C1 API; its full React interface is not built yet. Artwork and trailers need internet access; the trailer dialog provides a YouTube fallback when an embed cannot play. Motion and sound have header toggles, with reduced-motion support.
+The cart lives in React state and resets on refresh. Echoed messages are not stored. There are no accounts, payments, or production deployment. A shared demo wishlist is stored in SQLite and managed through the React Wishlist page. Each browser sees the same classroom list; refreshing fetches its latest state. Artwork and trailers need internet access; the trailer dialog provides a YouTube fallback when an embed cannot play. Motion and sound have header toggles, with reduced-motion support.
 
 Game names, artwork, and trailers belong to their respective owners. Artwork comes from Minecraft.net, publisher Steam assets, Roblox, and Epic; free-game links go to official game pages.
 
-## Capstone foundation (L13)
+## Saved wishlist (C1 + C2)
 
 [Approved scope and planned architecture](CAPSTONE_SPEC.md) · [Feature issue #1](https://github.com/JustJiminAround/video-game-store/issues/1) · [Capstone AI-usage log](AI-USAGE-LOG.md).
 
@@ -74,4 +74,10 @@ Use **Node 24** for the server. The small SQLite layer uses Node's built-in [Dat
 
 Open `/api/demo` through the private Vite preview. Choose **Save Minecraft (demo)**, then **Read saved wishlist**. Reload and read it again; restart the API and read it once more. A duplicate save returns 409 and keeps one row. Use `db:inspect` to verify storage directly. This is a shared list of sample games, with no personal data.
 
-Implemented: `GET /api/wishlist` and `POST /api/wishlist`. The summary, PATCH, and DELETE routes are explicit **501 stubs** for L14; they do not claim to update anything. The existing storefront/cart behavior is unchanged.
+The catalog's **Save game** buttons call POST /api/wishlist. Open **Wishlist** in the header to read saved games, set Normal/High priority, or remove them. The summary comes from GET /api/wishlist/summary; it is computed by Express from SQLite choices and catalog prices, using integer cents. Changes are shown after the server confirms them and the list reloads. Loading, error, and empty states have visible messages and a retry control.
+
+Implemented: GET/POST /api/wishlist, PATCH/DELETE /api/wishlist/:gameId, and GET /api/wishlist/summary. See CONTRACT.md for shapes and errors. The sample cart still resets on refresh; saved wishlist choices persist.
+
+Core demo: save Minecraft and Hades, open Wishlist (2 games, $54.98), set Hades to High (1 high priority), refresh, remove Minecraft ($24.99), then remove Hades to show the empty state. If those games were already saved, use the existing rows rather than adding duplicates.
+
+The API Lab at /api/demo remains a small direct GET/POST practice page. The complete user flow is now at /wishlist. L15 is the feature freeze and acceptance-criteria pass before merging the draft PR. Automated and live-browser verification are recorded in LESSON_14_CORE.md.

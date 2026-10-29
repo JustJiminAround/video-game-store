@@ -71,11 +71,37 @@ export function createApp({ dbPath = ':memory:' } = {}) {
     res.status(201).json({ item });
   });
 
-  // C1 skeleton only: these operations are planned for the L14 build.
-  const comingNext = (_req, res) => res.status(501).json({ error: 'This wishlist operation is planned for Lesson 14.' });
-  app.get('/api/wishlist/summary', comingNext);
-  app.patch('/api/wishlist/:gameId', comingNext);
-  app.delete('/api/wishlist/:gameId', comingNext);
+  app.get('/api/wishlist/summary', async (_req, res) => {
+    const items = await wishlistItems();
+    res.json({
+      count: items.length,
+      highPriorityCount: items.filter(item => item.priority === 'high').length,
+      totalSamplePriceCents: items.reduce((total, item) => total + item.priceCents, 0),
+    });
+  });
+
+  app.patch('/api/wishlist/:gameId', async (req, res) => {
+    if (!req.is('application/json')) {
+      return res.status(415).json({ error: 'Send Content-Type: application/json.' });
+    }
+    const body = req.body;
+    if (!body || Array.isArray(body) || typeof body !== 'object'
+      || Object.keys(body).length !== 1 || !['normal', 'high'].includes(body.priority)) {
+      return res.status(400).json({ error: 'Send only a priority of normal or high.' });
+    }
+    if (!wishlist.setPriority(req.params.gameId, body.priority)) {
+      return res.status(404).json({ error: 'That game is not saved in the wishlist.' });
+    }
+    const item = (await wishlistItems()).find(game => game.gameId === req.params.gameId);
+    res.json({ item });
+  });
+
+  app.delete('/api/wishlist/:gameId', (req, res) => {
+    if (!wishlist.remove(req.params.gameId)) {
+      return res.status(404).json({ error: 'That game is not saved in the wishlist.' });
+    }
+    res.status(204).end();
+  });
 
   app.use((_req, res) => res.status(404).json({ error: 'API route not found.' }));
   app.use((error, _req, res, _next) => {

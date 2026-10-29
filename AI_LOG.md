@@ -86,3 +86,8 @@ Verified: lint and production build passed. The Farming mood card displayed Star
 
 ## October 27, 2026 — Capstone C1
 The ongoing capstone record now uses the filename required in Lesson 13: [AI-USAGE-LOG.md](AI-USAGE-LOG.md). Today's SQLite/schema/API work, choices, corrections, checks, and remaining L14 work are recorded there. Earlier history above remains unchanged.
+
+
+## October 29, 2026 — Capstone C2 wishlist core
+
+Connected the React wishlist to Express/SQLite; added priority changes, removal, summary, loading/error/retry/empty states. The canonical [AI-USAGE-LOG.md](AI-USAGE-LOG.md) records what was requested, produced, corrected, and verified. All 17 automated tests, client lint, and build passed; live save/refresh/remove/empty/error/restart/retry checks are recorded in [LESSON_14_CORE.md](LESSON_14_CORE.md).

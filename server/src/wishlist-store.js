@@ -20,9 +20,13 @@ export function openWishlistStore(path = ':memory:') {
   }
   const list = db.prepare('SELECT game_id AS gameId, priority, created_at AS createdAt FROM wishlist ORDER BY created_at, game_id');
   const insert = db.prepare('INSERT INTO wishlist (game_id) VALUES (?) ON CONFLICT(game_id) DO NOTHING');
+  const update = db.prepare('UPDATE wishlist SET priority = ? WHERE game_id = ?');
+  const remove = db.prepare('DELETE FROM wishlist WHERE game_id = ?');
   return {
     all: () => list.all().map(row => ({ ...row })),
     add: gameId => insert.run(gameId).changes === 1,
+    setPriority: (gameId, priority) => update.run(priority, gameId).changes === 1,
+    remove: gameId => remove.run(gameId).changes === 1,
     close: () => { if (db.isOpen) db.close(); },
   };
 }

@@ -76,22 +76,72 @@ test('a saved game survives closing the server and reopening the database', asyn
   const path = await temporaryDatabase(t);
   const first = await start(t, path);
   assert.equal((await save(first.url, { gameId: 'hades' })).status, 201);
+  const changed = await fetch(first.url + '/api/wishlist/hades', {
+    method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ priority: 'high' }),
+  });
+  assert.equal(changed.status, 200);
   await first.stop();
   const direct = new DatabaseSync(path, { readOnly: true });
-  try { assert.equal(direct.prepare('SELECT game_id FROM wishlist').get().game_id, 'hades'); }
+  try { assert.equal(direct.prepare('SELECT priority FROM wishlist WHERE game_id = ?').get('hades').priority, 'high'); }
   finally { direct.close(); }
   const second = await start(t, path);
   const { items } = await (await fetch(second.url + '/api/wishlist')).json();
   assert.equal(items.length, 1);
   assert.equal(items[0].name, 'Hades');
-  assert.equal(items[0].priority, 'normal');
+  assert.equal(items[0].priority, 'high');
 });
 
-test('L14 skeleton routes say they are unfinished instead of pretending to work', async t => {
+test('summary reflects stored choices, priority updates and real deletions', async t => {
+  const path = await temporaryDatabase(t);
+  const { url, stop } = await start(t, path);
+  const summary = async () => {
+    const response = await fetch(url + '/api/wishlist/summary');
+    assert.equal(response.status, 200);
+    return response.json();
+  };
+  assert.deepEqual(await summary(), { count: 0, highPriorityCount: 0, totalSamplePriceCents: 0 });
+  await save(url, { gameId: 'minecraft' });
+  await save(url, { gameId: 'hades' });
+  assert.deepEqual(await summary(), { count: 2, highPriorityCount: 0, totalSamplePriceCents: 5498 });
+  const updated = await fetch(url + '/api/wishlist/hades', {
+    method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ priority: 'high' }),
+  });
+  assert.equal(updated.status, 200);
+  assert.equal((await updated.json()).item.priority, 'high');
+  assert.deepEqual(await summary(), { count: 2, highPriorityCount: 1, totalSamplePriceCents: 5498 });
+  const removed = await fetch(url + '/api/wishlist/minecraft', { method: 'DELETE' });
+  assert.equal(removed.status, 204);
+  assert.equal(await removed.text(), '');
+  assert.deepEqual(await summary(), { count: 1, highPriorityCount: 1, totalSamplePriceCents: 2499 });
+  await stop();
+  const direct = new DatabaseSync(path, { readOnly: true });
+  try { assert.equal(direct.prepare('SELECT * FROM wishlist WHERE game_id = ?').get('minecraft'), undefined); }
+  finally { direct.close(); }
+  const restarted = await start(t, path);
+  assert.deepEqual(await (await fetch(restarted.url + '/api/wishlist/summary')).json(), {
+    count: 1, highPriorityCount: 1, totalSamplePriceCents: 2499,
+  });
+  assert.equal((await fetch(restarted.url + '/api/wishlist/hades', { method: 'DELETE' })).status, 204);
+  assert.deepEqual(await (await fetch(restarted.url + '/api/wishlist')).json(), { items: [] });
+});
+
+test('invalid updates and missing rows return JSON errors without changing saved data', async t => {
   const { url } = await start(t, await temporaryDatabase(t));
-  for (const [method, path] of [['GET', '/summary'], ['PATCH', '/minecraft'], ['DELETE', '/minecraft']]) {
-    const response = await fetch(url + '/api/wishlist' + path, { method });
-    assert.equal(response.status, 501);
-    assert.match((await response.json()).error, /Lesson 14/);
+  await save(url, { gameId: 'minecraft' });
+  for (const body of [null, [], {}, { priority: 'urgent' }, { priority: 1 }, { priority: 'high', extra: true }]) {
+    const response = await fetch(url + '/api/wishlist/minecraft', {
+      method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+    });
+    assert.equal(response.status, 400);
+    assert.equal(typeof (await response.json()).error, 'string');
   }
+  assert.equal((await fetch(url + '/api/wishlist/minecraft', { method: 'PATCH', body: 'high' })).status, 415);
+  const absent = await fetch(url + '/api/wishlist/missing', {
+    method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ priority: 'high' }),
+  });
+  assert.equal(absent.status, 404);
+  assert.equal((await fetch(url + '/api/wishlist/missing', { method: 'DELETE' })).status, 404);
+  const { items } = await (await fetch(url + '/api/wishlist')).json();
+  assert.equal(items.length, 1);
+  assert.equal(items[0].priority, 'normal');
 });
