@@ -22,3 +22,20 @@ Run the API on port 3001 and Vite on port 5173 in separate terminals. Vite proxi
 3. POST echoes the supplied JSON object without persisting it.
 4. Invalid requests return the documented JSON errors.
 5. API tests and client checks pass; both startup commands are documented.
+
+
+## Capstone wishlist — L14 implementation
+
+The approved contract was written in CAPSTONE_SPEC.md before implementation. The C1 stubs are now implemented. All errors use `{ "error": "helpful message" }`. POST/PATCH require Content-Type: application/json; malformed JSON returns 400 and oversized bodies return 413.
+
+| Method / path | Body | Success | Other responses |
+| --- | --- | --- | --- |
+| GET /api/wishlist | none | 200 `{ items: [{ gameId, priority, createdAt, name, priceCents, image }] }` | 500 safe JSON error |
+| POST /api/wishlist | `{ gameId: "minecraft" }` only | 201 `{ item }`, priority normal | 400 invalid fields; 404 unknown catalog ID; 409 already saved; 415 wrong content type |
+| PATCH /api/wishlist/:gameId | `{ priority: "normal" }` or `{ priority: "high" }` only | 200 `{ item }` | 400 invalid fields/priority; 404 no saved row; 415 wrong content type |
+| DELETE /api/wishlist/:gameId | none | 204 with **no response body** | 404 no saved row |
+| GET /api/wishlist/summary | none | 200 `{ count, highPriorityCount, totalSamplePriceCents }` | 500 safe JSON error |
+
+Summary is a custom server calculation over the current saved rows, combined with catalog prices. Minecraft + Hades = `{ count: 2, highPriorityCount: 0, totalSamplePriceCents: 5498 }`. Marking Hades high changes highPriorityCount to 1; deleting Minecraft changes count to 1 and the total to 2499. These values are calculated, not hard-coded.
+
+IDs and priorities in SQL writes are bound parameters. The unique primary key rejects duplicate rows. The UI re-fetches list and summary after each write; it does not report an unsuccessful request as saved. The wishlist is a shared private classroom demo with no accounts or personal information.

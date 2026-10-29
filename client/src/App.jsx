@@ -9,8 +9,12 @@ import { playClick } from './clickSounds'
 import './App.css'
 import './Premium.css'
 import FreeToPlay from './components/FreeToPlay'
+import Wishlist from './components/Wishlist'
+import useWishlist from './useWishlist'
+import './Wishlist.css'
 
 export default function App() {
+  const wishlist = useWishlist()
   const [motionEnabled, setMotionEnabled] = useState(true)
   const [cart, setCart] = useState([])
   const [notice, setNotice] = useState('')
@@ -40,7 +44,7 @@ export default function App() {
       <ExperienceEffects />
 <header className="site-header">
         <Link className="brand" to="/"><span className="brand-mark" aria-hidden="true">P<span>1</span></span><span>PLAYER<span className="brand-one">ONE</span><small>FIND YOUR NEXT WORLD</small></span></Link>
-        <nav aria-label="Main navigation"><NavLink to="/" end>Discover</NavLink><NavLink to="/free-to-play">Free to play</NavLink><NavLink to="/cart">Cart <span className="cart-count">{count}</span></NavLink></nav>
+        <nav aria-label="Main navigation"><NavLink to="/" end>Discover</NavLink><NavLink to="/free-to-play">Free to play</NavLink><NavLink to="/wishlist">Wishlist <span className="cart-count">{wishlist.loading ? "…" : wishlist.items.length}</span></NavLink><NavLink to="/cart">Cart <span className="cart-count">{count}</span></NavLink></nav>
         <div className="header-controls"><button className="motion-toggle" aria-pressed={motionEnabled} onClick={() => setMotionEnabled(v => !v)}>Motion {motionEnabled ? "on" : "off"}</button><button className="sound-toggle" aria-pressed={soundEnabled} onClick={() => { if (!soundEnabled) playClick(); setSoundEnabled(value => !value) }}><span aria-hidden="true">♪</span> Sound {soundEnabled ? 'on' : 'off'}</button><span className="header-note"><i /> SCHOOL PROJECT</span></div>
       </header>
       <main>
@@ -49,7 +53,7 @@ export default function App() {
             <>
               <Spotlight onAdd={addGame} onTrailer={setTrailer} />
               <div className="store-strip"><span><i /> SIX WORLDS. ENDLESS POSSIBILITIES.</span><span>CURATED FOR PLAYER ONE <b>✦</b></span></div>
-              <Collection onAdd={addGame} onTrailer={setTrailer} />
+              <Collection onAdd={addGame} onTrailer={setTrailer} wishlist={wishlist} />
 <TrailerStage onTrailer={setTrailer} />
               <FreeToPlay />
               <section className="closing-banner"><span className="closing-icon" aria-hidden="true">✦</span><div><p className="eyebrow">SMALL COLLECTION. BIG ADVENTURES.</p><h2>Your next favorite is waiting.</h2></div><Link to="/cart">View your cart <span aria-hidden="true">↗</span></Link></section>
@@ -57,6 +61,7 @@ export default function App() {
           } />
           <Route path="/free-to-play" element={<FreeToPlay />} />
           <Route path="/cart" element={<Cart items={cart} onRemove={removeGame} onAdd={addGame} />} />
+          <Route path="/wishlist" element={<Wishlist wishlist={wishlist} />} />
           <Route path="*" element={<section className="cart-page"><h1>Page not found</h1><Link to="/">Browse games</Link></section>} />
         </Routes>
       </main>

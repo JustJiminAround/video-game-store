@@ -4,12 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "node --watch src/index.js",
-    "test": "node --test"
+    "start": "node --env-file-if-exists=.env src/index.js",
+    "dev": "node --env-file-if-exists=.env --watch src/index.js",
+    "test": "node --test",
+    "db:init": "node --env-file-if-exists=.env scripts/database.js init",
+    "db:inspect": "node --env-file-if-exists=.env scripts/database.js inspect"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=24 <25"
   },
   "dependencies": {
     "express": "^5.3.0"
